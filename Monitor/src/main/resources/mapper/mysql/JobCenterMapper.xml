@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
+<mapper namespace="com.giveu.dao.mysql.JobCenterDAO">
+
+    <select id="getMonitorObject" resultType="com.giveu.entity.MonitorObject">
+        select * from MONITOR_OBJECT
+    </select>
+    <select id="getMonitorById" resultType="com.giveu.entity.MonitorObject">
+        select * from MONITOR_OBJECT where id = #{id}
+    </select>
+
+    <select id="getMonitorObjectByCode" resultType="com.giveu.entity.MonitorObject">
+        select * from MONITOR_OBJECT where obj_code = #{objCode}
+    </select>
+    <select id="list" resultType="com.giveu.entity.MonitorObject">
+        select * from MONITOR_OBJECT WHERE 1 = 1
+        <if test="objName != null">
+            and obj_name like CONCAT('%', #{objName}, '%')
+        </if>
+        order by obj_create_time desc;
+    </select>
+    <select id="logList" resultType="com.giveu.entity.MonitorLog">
+        select * from MONITOR_LOG WHERE 1 = 1
+        <if test="objName != null">
+            and obj_name=#{objName}
+        </if>
+
+        <if test="logBeginTime != null">
+            and unix_timestamp(log_create_time)*1000 &gt;= #{logBeginTime}
+        </if>
+        <if test="logEndTime != null">
+            and unix_timestamp(log_create_time)*1000 &lt;= #{logEndTime}
+        </if>
+        order by log_create_time desc;
+    </select>
+
+    <insert id="addMonitorLog" parameterType="com.giveu.entity.MonitorLog">
+        insert into MONITOR_LOG(id, obj_id, obj_name, obj_code, obj_desc, obj_policy_settings, obj_receiver_settings, log_context)
+        value(#{id},#{objId},#{objName},#{objCode},#{objDesc},#{objPolicySettings},#{objReceiverSettings},#{logContext})
+    </insert>
+    
+    <update id="updObjPolicySettings">
+        update MONITOR_OBJECT set obj_policy_settings = #{objPolicySettings} WHERE id = #{id}
+    </update>
+
+</mapper>

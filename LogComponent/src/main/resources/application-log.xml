@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:application-log.properties"/>
+
+    <!--<bean id="businessLeadTimeHandler" class="BusinessLeadTimeHandler"></bean>-->
+    <!--<aop:config>-->
+        <!--&lt;!&ndash;设置一个切点&ndash;&gt;-->
+        <!--<aop:pointcut id="business" expression="execution(* com..*.*Service.*(..))"></aop:pointcut>-->
+        <!--<aop:aspect ref="businessLeadTimeHandler">-->
+            <!--<aop:around method="around" pointcut-ref="business"></aop:around>-->
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="${controller.mapping.path}"/>
+            <mvc:exclude-mapping path="/favicon.ico"/>
+            <mvc:exclude-mapping path="/jolokia"/>
+            <mvc:exclude-mapping path="/**/fonts/*"/>
+            <mvc:exclude-mapping path="/**/*.css"/>
+            <mvc:exclude-mapping path="/**/*.js"/>
+            <mvc:exclude-mapping path="/**/*.png"/>
+            <mvc:exclude-mapping path="/**/*.gif"/>
+            <mvc:exclude-mapping path="/**/*.jpg"/>
+            <mvc:exclude-mapping path="/**/*.jpeg"/>
+            <bean class="com.giveu.log.scan.component.InterceptLog" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>

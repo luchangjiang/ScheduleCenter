@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
+<mapper namespace="com.giveu.dao.mysql.MonitorLogDAO">
+    
+    <select id="getMonitorErrorLog" resultType="com.giveu.job.common.vo.MonitorLogVo">
+        select * from MONITOR_LOG
+        <where>
+            <if test='objName != ""'>
+                and obj_name like concat('%',#{objName},'%')
+            </if>
+        </where>
+
+        ORDER BY log_create_time DESC limit 20
+
+
+
+        <!--where true-->
+        <!--<if test="objName!=null or objName != ''"> AND obj_name like concat('%',#{objName},'%')</if>-->
+        <!--ORDER BY log_create_time DESC limit 20-->
+    </select>
+    
+</mapper>

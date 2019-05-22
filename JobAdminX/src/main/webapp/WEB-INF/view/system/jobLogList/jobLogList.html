@@ -1,0 +1,122 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>日志列表管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <form action="">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <#TimeCon id="beginTime" name="开始时间" isTime="false" pattern="YYYY-MM-DD" />
+                                <#TimeCon id="endTime" name="结束时间" isTime="false" pattern="YYYY-MM-DD" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#NameCon id="jobId" name="任务ID" />
+                                <#NameCon id="jobCode" name="任务标识" />
+                            </div>
+                            <div class="col-sm-2">
+                                <#SelectCon id="executeStatus" name="状态" >
+                                <option value="0">全部</option>
+                                <option value="1">成功</option>
+                                <option value="2">失败</option>
+                                </#SelectCon>
+                                <#SelectCon id="appKey" name="选择应用">
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-3">
+                                <#button id="search" class="btn btn-success" name="搜索" icon="fa-search" clickFun="JobLogList.search()"/>
+                                <input type="reset" id="search-input-reset" class="btn btn-warning" value="重置">
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="JobLogListTableToolbar" role="group">
+                            @if(shiro.hasPermission("/jobLogList/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="JobLogList.openAddJobLogList()"/>
+                            @}
+                            @if(shiro.hasPermission("/jobLogList/update")){
+                                <#button name="修改" icon="fa-plus" clickFun="JobLogList.openJobLogListDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/jobLogList/delete")){
+                                <#button name="删除" icon="fa-plus" clickFun="JobLogList.delete()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/jobLogList/trigger/log/id")){
+                                <#button name="手动执行" icon="fa-plus" clickFun="JobLogList.trigger()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="JobLogListTable"/>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    $(function() {
+        var account = "${account}";
+//        if (account != "admin") {
+//            $("#appKey").parents(".input-group").hide();
+//            return;
+//        }
+        var appListJson = '${appListJson}';
+        var appList = JSON.parse(appListJson);
+        var data = appList.data;
+        var str = "";
+        for (var i = 0; i < data.length; i++) {
+            str = str + "<option value='"+ data[i].appKey +"'>"+ data[i].appName +"</option>";
+        }
+        document.getElementById("appKey").innerHTML = str;
+    })
+</script>
+<script src="${ctxPath}/static/modular/system/jobLogList/jobLogList.js"></script>
+<script>
+    setInterval(function () {
+        var jobId = localStorage.getItem("jobId");
+        var appKey = localStorage.getItem("appKey");
+        var jobTime = localStorage.getItem("jobTime");
+        var nowTime = new Date().getTime();
+        var xTime = nowTime - jobTime;
+
+        if(xTime < 1500) {
+            $("#search-input-reset").click();
+            $("#jobId").val(jobId);
+            $("#appKey").val(appKey);
+            $("#search").click();
+        }
+
+    }, 1000);
+
+    function getCookie(name){
+        var strcookie = document.cookie;//获取cookie字符串
+        var arrcookie = strcookie.split("; ");//分割
+        //遍历匹配
+        for ( var i = 0; i < arrcookie.length; i++) {
+            var arr = arrcookie[i].split("=");
+            if (arr[0] == name){
+                return arr[1];
+            }
+        }
+        return "";
+    }
+
+    setInterval(function() {
+        var triggerCount = getCookie('triggerCount');
+        $(function() {
+            var str1 = $(".pagination-info").eq(0).text();
+            var str2 = str1.replace("，总共 100 条记录", "，总共 " + triggerCount + " 条记录");
+            $(".pagination-info").eq(0).text(str2);
+        });
+    }, 200)
+
+
+
+
+
+</script>
+
+
+@}

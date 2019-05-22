@@ -1,0 +1,17 @@
+server:
+  port: 8761
+
+eureka:
+  server:
+      enable-self-preservation: false
+      eviction-interval-timer-in-ms: 10000
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 10
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    registry-fetch-interval-seconds: 1
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

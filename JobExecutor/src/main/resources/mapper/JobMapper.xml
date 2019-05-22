@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
+<mapper namespace="com.giveu.dao.JobAndTriggerMapper">
+    
+    <!--<select id="getJobAndTriggerDetails" resultType="JobAndTrigger">-->
+			<!--select * from qrtz_job_details d, qrtz_triggers t, qrtz_cron_triggers c where d.job_name = t.job_name and d.job_group = t.job_group and t.trigger_name = c.trigger_name and t.trigger_group = c.trigger_group-->
+    <!--</select>-->
+    
+</mapper>

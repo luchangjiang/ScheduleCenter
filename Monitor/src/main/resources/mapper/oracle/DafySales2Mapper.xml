@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.giveu.dao.oracle.DafySales2DAO">
+
+    <!--<select id="getCsCreditByStatus" resultType="CsCredit">-->
+        <!--select * from cs_credit a where a.status='#{status}'-->
+    <!--</select>-->
+
+    <!--<select id="getContractActive" resultType="CsCredit">-->
+        <!--select a.* from cs_credit a inner join cs_audit_log2 b on a.id=b.id_credit where a.status='a' and b.from_status='y' and b.to_status='a' and b.end_time &gt;= trunc(sysdate)-->
+    <!--</select>-->
+
+    <!--<select id="getContractRegister" resultType="CsCredit">-->
+        <!--select * from cs_credit a where a.status = 'y'-->
+    <!--</select>-->
+
+    <!--<select id="getContractActiveOnlyId" resultType="int">-->
+        <!--select a.id from cs_credit a inner join cs_audit_log2 b on a.id=b.id_credit where a.status='a' and b.from_status='y' and b.to_status='a' and b.end_time &gt;= trunc(sysdate)-->
+    <!--</select>-->
+
+    <!--<select id="getContractRegisterOnlyId" resultType="int">-->
+        <!--select a.id from cs_credit a where a.status = 'y'-->
+    <!--</select>-->
+
+</mapper>

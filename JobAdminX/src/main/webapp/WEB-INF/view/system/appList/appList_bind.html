@@ -1,0 +1,48 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="app-key" value="${appKey}">
+
+            <div class="row" id="check-list">
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="AppListInfoDlg.bindSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="AppListInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+
+    $(function() {
+        var accountListJson = '${accountListJson}';
+        var bindAccountListJson = '${bindAccountListJson}';
+        var accountList = JSON.parse(accountListJson);
+        var bindAccountList = JSON.parse(bindAccountListJson);
+        var str = "";
+        for (var i = 0; i < accountList.length; i++) {
+            var flag = false;
+            for (var j = 0; j < bindAccountList.length; j++) {
+                if (accountList[i] == bindAccountList[j]) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag) {
+                str += "<label><input name='account-list' type='checkbox' value='" + accountList[i] + "' checked = 'checked' />" + accountList[i] + "</label> &nbsp;|&nbsp;";
+            }else {
+                str += "<label><input name='account-list' type='checkbox' value='" + accountList[i] + "' />" + accountList[i] + "</label> &nbsp;|&nbsp;";
+            }
+        }
+        $("#check-list").html(str);
+    });
+
+</script>
+<script src="${ctxPath}/static/modular/system/appList/appList_info.js"></script>
+@}

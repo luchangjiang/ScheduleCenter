@@ -1,0 +1,1181 @@
+
+<link rel="stylesheet" href="../../static/css/index.css">
+@layout("/common/_container.html"){
+<div class="container-fluid" style="padding: 0 !important;">
+	<div class="row">
+		<div class="col-sm-3">
+		</div>
+		<style>
+			body,html{
+				width: 100%;
+				height: auto;
+				color:#333;
+				/* overflow: hidden;*/
+				background: url('../img/true.png') no-repeat;
+				background-size: 100% 100%;
+			}
+			#chart_map{
+				cursor: pointer;
+			}
+			.t_show{
+				position: absolute;
+				top: 0;
+				right: 0;
+				border-radius: 2px;
+				background: #2C58A6;
+				padding: 2px 5px;
+				color: #fff;
+				cursor: pointer;
+			}
+			table{
+				width: 95%;
+				padding: 0px;
+				margin:0px auto ;
+			}
+
+
+			table {
+				font-family: verdana,arial,sans-serif;
+				font-size:11px;
+				color:#333333;
+				border-width: 1px;
+				border-color: #666666;
+				border-collapse: collapse;
+				text-align: center;
+				borer-left:0px;
+				border-right: 0px;
+				padding: 20px;
+			}
+			table th:first-child{border-left:none;}
+			table th:last-child{border-right:none;}
+			table td:first-child{border-left:none;}
+			table td:last-child{border-right:none;}
+			table.gridtable th {
+
+				border-width: 1px;
+				padding: 8px;
+				border-style: solid;
+				border-color: #ddd;
+
+				text-align: center;
+			}
+			table.gridtable td {
+
+				border-width: 1px;
+				padding: 8px;
+				border-style: solid;
+				border-color:#ddd;
+				background-color: #ffffff;
+			}
+			.data_content .data_main .main_right {
+				width: 44%;
+			}
+			.t_title {
+				width: 100%;
+				/* height: 100%; */
+				text-align: center;
+				/* font-size: 2.5em; */
+				line-height: 0px;
+				color: black;
+				margin-top: -40px;
+			}
+			.data_content .data_main .main_left>div {
+				width: 100%;
+				height: 280px;
+				box-sizing: border-box;
+				border: 1px solid #034c6a;
+				box-shadow: -10px 0px 15px #034c6a inset, /*左边阴影*/ 0px -10px 15px #034c6a inset, /*上边阴影*/ 10px 0px 15px #034c6a inset, /*右边阴影*/ 0px 10px 15px #034c6a inset;
+				position: relative;
+			}
+
+			#chart_1 tr{
+				height: 45px;
+			}
+
+			#lead-time-job tr {
+				height: 20px;
+			}
+			#home tr {
+				height: 20px;
+			}
+		</style>
+		</head>
+		<!--header-->
+		<div class="header">
+			<div class="bg_header">
+				<div class="header_nav fl t_title" style="line-height: 110px">
+					<span>任务调度中心</span>
+				</div>
+			</div>
+		</div>
+		<!--main-->
+		<div class="data_content">
+			<div class="data_main">
+				<div class="main_left fl">
+					<div class="left_1 t_btn6" style="cursor: pointer;">
+						<!--左上边框-->
+						<div class="t_line_box">
+							<i class="t_l_line"></i>
+							<i class="l_t_line"></i>
+						</div>
+						<!--右上边框-->
+
+						<!--左下边框-->
+						<div class="t_line_box">
+							<i class="l_b_line"></i>
+							<i class="b_l_line"></i>
+						</div>
+						<!--右下边框-->
+
+						<!--<script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>-->
+						<!--<script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>-->
+						<!--<script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>-->
+						<!--<script src="https://img.hcharts.cn/highcharts/themes/grid-light.js"></script>-->
+						<div id="chart_5" class="chart" style="width:100%;height: 280px; ">
+
+						</div>
+					</div>
+					<div class="left_3" style="cursor: pointer; border: 1px solid green;width:200%; " >
+						<!--左上边框-->
+						<div class="t_line_box">
+							<i class="t_l_line"></i>
+							<i class="l_t_line"></i>
+						</div>
+						<!--右上边框-->
+						<div class="t_line_box">
+							<i class="t_r_line"></i>
+							<i class="r_t_line"></i>
+						</div>
+						<!--左下边框-->
+						<div class="t_line_box">
+							<i class="l_b_line"></i>
+							<i class="b_l_line"></i>
+						</div>
+						<!--右下边框-->
+						<div class="t_line_box"  >
+							<i class="r_b_line"></i>
+							<i class="b_r_line"></i>
+						</div>
+
+						<div id="chart_2" class="chart t_btn9" style="width:100%;height: 280px;">
+
+							​<div class="row"  style="margin-top: 0px;padding-left:10px;padding-right:10px;">
+								<div class="col-sm-2" style="margin: 0px; display: none;">
+									<input type="text" class="form-control layer-date" onclick="laydate({istime: false, format: 'YYYY-MM-DD'})" id="beginTime">
+								</div>
+
+								<div class="col-sm-2" style="display: none;">
+									<input type="text" class="form-control layer-date" onclick="laydate({istime: false, format: 'YYYY-MM-DD'})" id="beginTime">
+								</div>
+								<div class="col-sm-7" style="line-height: 50px;">
+									<span>&nbsp;&nbsp;&nbsp;&nbsp;近30日</span>
+									<!--<span>当前</span>-->
+									<!--<span>上月</span>-->
+								</div>
+								<div class="col-sm-5">
+									<ul id="myTab" class="nav nav-tabs" style="float: right;">
+										<li class="active">
+											<a href="#home2" data-toggle="tab">
+												按任务TOP 5
+
+											</a>
+										</li>
+										<li><a href="#ios2" data-toggle="tab">按应用TOP 5</a></li>
+
+
+									</ul>
+								</div>
+								<div id="myTabContent" class="tab-content" style="margin-top: 0px;">
+									<div class="tab-pane fade in active" id="home2">
+										<table class="gridtable" id="trigger-sum-top-job">
+											<tr>
+												<th>序号</th>
+												<th>应用名称</th>
+												<th>创建时间</th>
+												<th>总调次数</th>
+												<th>失败次数</th>
+												<th>失败比例</th>
+											</tr>
+										</table>
+									</div>
+									<div class="tab-pane fade" id="ios2">
+										<table class="gridtable" id="trigger-sum-top-app">
+											<tr>
+												<th>序号	</th>
+												<th>应用名称</th>
+												<th>任务个数</th>
+												<th>总调次数</th>
+												<th>失败次数</th>
+												<th>失败比例</th>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="main_left fl"  >
+					<div class="left_1 t_btn6" style="cursor: pointer; color: white;);">
+						<!--左上边框-->
+						<div class=" t_line_box1"  style="">
+							<i class="t_l_line"></i>
+							<i class="l_t_line"></i>
+						</div>
+						<!--右上边框-->
+						<div class="t_line_box">
+							<i class="t_r_line"></i>
+							<i class="r_t_line"></i>
+						</div>
+						<!--左下边框-->
+
+						<!--右下边框-->
+						<div class="t_line_box">
+							<i class="r_b_line"></i>
+							<i class="b_r_line"></i>
+						</div>
+						<div id="chart_1" class="chart" style="width:100%;height: 270px;overflow: hidden;">
+							<table class="gridtable" id="table1" >
+								<tr>
+									<th>应用名称</th>
+									<th>任务数(个)</th>
+								</tr>
+							</table>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="main_right fr"  >
+					<div class="right_1" style="margin-bottom: 40px">
+						<!--左上边框-->
+						<div class="t_line_box">
+							<i class="t_l_line"></i>
+							<i class="l_t_line"></i>
+						</div>
+						<!--右上边框-->
+						<div class="t_line_box">
+							<i class="t_r_line"></i>
+							<i class="r_t_line"></i>
+						</div>
+						<!--左下边框-->
+						<div class="t_line_box">
+							<i class="l_b_line"></i>
+							<i class="b_l_line"></i>
+						</div>
+						<!--右下边框-->
+						<div class="t_line_box">
+							<i class="r_b_line"></i>
+							<i class="b_r_line"></i>
+						</div>
+
+						<script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
+						<script src="https://img.hcharts.cn/highcharts/modules/series-label.js"></script>
+						<script src="https://img.hcharts.cn/highcharts/modules/oldie.js"></script>
+						<script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+						<script src="https://img.hcharts.cn/highcharts/themes/grid-light.js"></script>
+						​<div class="row"  style="margin-top: 0px;padding-left:10px;padding-right:10px;">
+						<div class="col-sm-2" style="width:12%;margin-left: 12px;padding: 0px; display: none;">
+							<input type="text" class="form-control layer-date" onclick="laydate({istime: false, format: 'YYYY-MM-DD'})" id="beginTime1">
+						</div>
+						<!--<div class="col-sm-2"  style="width: 3%;line-height: 40px;">至-->
+						<!--</div>-->
+						<div class="col-sm-2"  style="width: 15%;padding: 0px; display: none;">
+							<input type="text" class="form-control layer-date" onclick="laydate({istime: false, format: 'YYYY-MM-DD'})" id="beginTime2">
+						</div>
+						<div class="col-sm-7" style="line-height: 40px;">
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;近30日</span>
+							<!--<a>当前</a>-->
+							<!--<a>上月</a>-->
+						</div>
+						<div class="col-sm-5">
+							<ul id="myTab" class="nav nav-tabs" style="float: right;">
+								<li class="active">
+									<a href="#home1" data-toggle="tab">
+										日期趋势图
+
+									</a>
+								</li>
+								<li><a href="#ios1" data-toggle="tab">应用对比图</a></li>
+
+
+							</ul>
+						</div>
+						<div id="myTabContent" class="tab-content" style="margin-top: 0px;">
+							<div class="tab-pane fade in active" id="home1">
+								<div id="chart_3" class="echart t_btn7" style="width:100%;height: 200px;margin-top: 20px;">
+
+								</div>
+							</div>
+							<div class="tab-pane fade" id="ios1">
+								<div id="chart_9" class="echart t_btn7" style="width:100%;height: 200px;margin-top: 20px;">
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+
+					<div class="right_1 stat-table">
+						<!--左上边框-->
+						<div class="t_line_box">
+							<i class="t_l_line"></i>
+							<i class="l_t_line"></i>
+						</div>
+						<!--右上边框-->
+						<div class="t_line_box">
+							<i class="t_r_line"></i>
+							<i class="r_t_line"></i>
+						</div>
+						<!--左下边框-->
+						<div class="t_line_box">
+							<i class="l_b_line"></i>
+							<i class="b_l_line"></i>
+						</div>
+						<!--右下边框-->
+						<div class="t_line_box">
+							<i class="r_b_line"></i>
+							<i class="b_r_line"></i>
+						</div>
+						​<div class="row" style="margin-top: 0px;padding-left:10px;padding-right:10px;">
+						<div class="col-sm-2" style="margin-bottom: 15px; display: none;"><input type="text" class="form-control layer-date" onclick="laydate({istime: false, format: 'YYYY-MM-DD'})" id="beginTime">
+						</div>
+
+						<div class="col-sm-2" style="display: none;">
+							<input type="text" class="form-control layer-date" onclick="laydate({istime: false, format: 'YYYY-MM-DD'})" id="beginTime">
+						</div>
+						<div class="col-sm-7" style="line-height: 40px;">
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;近30日</span>
+							<!--<span>当前</span>-->
+							<!--<span>上月</span>-->
+						</div>
+
+
+						<div class="col-sm-5">
+							<ul id="myTab" class="nav nav-tabs" style="float: right;">
+								<li class="active">
+									<a href="#home" data-toggle="tab">
+										按任务TOP 5
+									</a>
+								</li>
+								<li><a href="#ios" data-toggle="tab">按应用TOP 5</a></li>
+							</ul>
+						</div>
+						<div id="" class="tab-content" style="margin: 0px;">
+							<div class="tab-pane fade in active" id="home">
+								<table class="gridtable" id="lead-time-job">
+									<tr>
+										<th>序号</th>
+										<th>任务名称</th>
+										<!--<th>创建时间</th>-->
+										<th>总调次数</th>
+										<th>平均耗时</th>
+										<th>最大耗时</th>
+										<th>最小耗时</th>
+									</tr>
+								</table>
+							</div>
+							<div class="tab-pane fade" id="ios">
+								<table class="gridtable" id="lead-time-app">
+									<tr>
+										<th>序号</th>
+										<th>应用名称</th>
+										<th>任务数</th>
+										<th>总调次数</th>
+										<th>平均耗时</th>
+										<th>最大耗时</th>
+										<th>最小耗时</th>
+									</tr>
+								</table>
+							</div>
+
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+    var JobList = {
+        id: "JobListTable"
+    };
+    var JobList1 = {
+        id: "JobListTable1"
+    };
+    var JobList2 = {
+        id: "JobListTable2"
+    };
+    var JobList3 = {
+        id: "JobListTable3"
+    };
+    var JobList4 = {
+        id: "JobListTable4"
+    };
+    var JobList5= {
+        id: "JobListTable5"
+    };
+
+
+    /**
+     * 初始化表格的列
+     */
+//    JobLogList1.initColumn = function () {
+//        return [
+//
+//            {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'},
+//            {title: '应用名称', field: 'jobName', align: 'center', valign: 'middle', sortable: true,width:'12%'},
+//            {title: '任务数（个）', field: 'jobDesc', align: 'left', valign: 'middle', sortable: true,width:'17%'}
+//        ];
+//    };
+    /**
+     * 初始化表格的列
+     */
+//    JobLogList2.initColumn = function () {
+//        return [
+//            {field: 'selectItem', radio: true},
+//            {title: '序号', field: 'id', visible: false, align: 'center', valign: 'middle'},
+//            {title: '任务名称', field: 'jobName', align: 'center', valign: 'middle', sortable: true,width:'12%'},
+//            {title: '任务数', field: 'jobDesc', align: 'left', valign: 'middle', sortable: true,width:'17%'},
+//            {title: '总调数', field: 'jobDesc', align: 'left', valign: 'middle', sortable: true,width:'17%'},
+//            {title: '平均耗时(s)', field: 'jobDesc', align: 'left', valign: 'middle', sortable: true,width:'17%'},
+//            {title: '最大耗时（ms）', field: 'jobDesc', align: 'left', valign: 'middle', sortable: true,width:'17%'},
+//            {title: '最小耗时（ms）', field: 'jobDesc', align: 'left', valign: 'middle', sortable: true,width:'17%'}
+//
+//        ];
+//    };
+    /**
+     * 初始化表格的列
+     */
+//    JobLogList3.initColumn = function () {
+//        return [
+//            {field: 'selectItem', radio: true},
+//            {title: '序号', field: 'id', visible: false, align: 'center', valign: 'middle'},
+//            {title: '应用名称', field: 'jobName', align: 'center', valign: 'middle', sortable: true,width:'12%'},
+//            {title: '任务数', field: 'jobDesc', align: 'left', valign: 'middle', sortable: true,width:'17%'},
+//            {title: '总调数', field: 'jobDesc', align: 'left', valign: 'middle', sortable: true,width:'17%'},
+//            {title: '平均耗时(s)', field: 'jobDesc', align: 'left', valign: 'middle', sortable: true,width:'17%'},
+//            {title: '最大耗时（ms）', field: 'jobDesc', align: 'left', valign: 'middle', sortable: true,width:'17%'},
+//            {title: '失败次数', field: 'jobDesc', align: 'left', valign: 'middle', sortable: true,width:'17%'},
+//            {title: '失败总比例', field: 'jobDesc', align: 'left', valign: 'middle', sortable: true,width:'17%'}
+//        ];
+//    };
+
+
+    /**
+     * 查询列表
+     */
+    JobList.search = function () {
+        var queryData = {};
+        queryData['id'] = $("#id").val();
+        queryData['jobCode'] = $("#jobCode").val();
+        queryData['appKey'] = $("#appKey").val();
+        JobList.table.refresh({query: queryData});
+    };
+
+//    $(function () {
+//        var defaultColunms = JobList.initColumn();
+//        var table = new BSTable(JobList.id, "/jobList/list", defaultColunms);
+//        table.setPaginationType("client");
+//        JobList.table = table.init();
+//    });
+
+
+    //对比应用图
+//    function  echart2() {
+//
+//        var chart = Highcharts.chart('chart_9', {
+//            chart: {
+//                type: 'column'
+//            },
+//            title: {
+//                text: '堆叠柱形图'
+//            },
+//            xAxis: {
+//                categories: ['苹果', '橘子', '梨', '葡萄', '香蕉']
+//            },
+//            yAxis: {
+//                min: 0,
+//                title: {
+//                    text: '水果消费总量'
+//                },
+//                stackLabels: {  // 堆叠数据标签
+//                    enabled: true,
+//                    style: {
+//                        fontWeight: 'bold',
+//                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+//                    }
+//                }
+//            },
+//            legend: {
+//                align: 'right',
+//                x: -30,
+//                verticalAlign: 'top',
+//                y: 25,
+//                floating: true,
+//                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+//                borderColor: '#CCC',
+//                borderWidth: 1,
+//                shadow: false
+//            },
+//            tooltip: {
+//                formatter: function () {
+//                    return '<b>' + this.x + '</b><br/>' +
+//                        this.series.name + ': ' + this.y + '<br/>' +
+//                        '总量: ' + this.point.stackTotal;
+//                }
+//            },
+//            plotOptions: {
+//                column: {
+//                    stacking: 'normal',
+//                    dataLabels: {
+//                        enabled: true,
+//                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+//                        style: {
+//                            // 如果不需要数据标签阴影，可以将 textOutline 设置为 'none'
+//                            textOutline: '1px 1px black'
+//                        }
+//                    }
+//                }
+//            },
+//            series: [{
+//                name: '成功',
+//                data: [5, 3, 4, 7, 2]
+//            }, {
+//                name: '失败',
+//                data: [2, 2, 3, 2, 1]
+//            }]
+//        });
+//        var chart = Highcharts.chart('chart_3', {
+//            chart: {
+//                type: 'line'
+//            },
+//            title: {
+//                text: '近30天调度数据'
+//            },
+//            subtitle: {
+//                text: ''
+//            },
+//            xAxis: {
+//                categories: ['一月']
+//            },
+//            yAxis: {
+//                title: {
+//                    text: '调度/次数'
+//                }
+//            },
+//            plotOptions: {
+//                line: {
+//                    dataLabels: {
+//                        // 开启数据标签
+//                        enabled: true
+//                    },
+//                    // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+//                    enableMouseTracking: false
+//                }
+//            },
+//            series: [{
+//                name: '总调度次数',
+//                data: [7.0]
+//            }, {
+//                name: '失败次数',
+//                data: [3.9]
+//            }]
+//        });
+//    }
+    //扇形图片
+    function echart1() {
+
+//        Highcharts.chart('chart_5', {
+//            chart: {
+//                plotBackgroundColor: null,
+//                plotBorderWidth: null,
+//                plotShadow: false,
+//                type: 'pie'
+//            },
+//            title: {
+//                text: '各业务调度任务数占比列'
+//            },
+//            tooltip: {
+//                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+//            },
+//            plotOptions: {
+//                pie: {
+//                    allowPointSelect: true,
+//                    cursor: 'pointer',
+//                    dataLabels: {
+//                        enabled: true,
+//                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+//                        style: {
+//                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+//                        }
+//                    }
+//                }
+//            },
+//            series: [{
+//                name: 'Brands',
+//                colorByPoint: true,
+//                data: [{
+//                    name: 'Chrome',
+//                    y: 61.41,
+//                    sliced: true,
+//                    selected: true
+//                }, {
+//                    name: 'Internet Explorer',
+//                    y: 11.84
+//                }, {
+//                    name: 'Firefox',
+//                    y: 10.85
+//                }, {
+//                    name: 'Edge',
+//                    y: 4.67
+//                }, {
+//                    name: 'Safari',
+//                    y: 4.18
+//                }, {
+//                    name: 'Sogou Explorer',
+//                    y: 1.64
+//                }, {
+//                    name: 'Opera',
+//                    y: 1.6
+//                }, {
+//                    name: 'QQ',
+//                    y: 1.2
+//                }, {
+//                    name: 'Other',
+//                    y: 3.61
+//                }]
+//            }]
+//        });
+
+
+    }
+
+    function echart1(){
+        var chart = Highcharts.chart('chart_9', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '堆叠柱形图'
+            },
+            xAxis: {
+                categories: ['苹果', '橘子', '梨', '葡萄', '香蕉']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '水果消费总量'
+                },
+                stackLabels: {  // 堆叠数据标签
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                x: -30,
+                verticalAlign: 'top',
+                y: 25,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.x + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' +
+                        '总量: ' + this.point.stackTotal;
+                }
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        style: {
+                            // 如果不需要数据标签阴影，可以将 textOutline 设置为 'none'
+                            textOutline: '1px 1px black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: '成功',
+                data: [5, 3, 4, 7, 2]
+            }, {
+                name: '失败',
+                data: [2, 2, 3, 2, 1]
+            }]
+        });
+//        var chart = Highcharts.chart('chart_3', {
+//            chart: {
+//                type: 'line'
+//            },
+//            title: {
+//                text: '近30天调度数据'
+//            },
+//            subtitle: {
+//                text: ''
+//            },
+//            xAxis: {
+//                categories: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+//            },
+//            yAxis: {
+//                title: {
+//                    text: '调度/次数'
+//                }
+//            },
+//            plotOptions: {
+//                line: {
+//                    dataLabels: {
+//                        // 开启数据标签
+//                        enabled: true
+//                    },
+//                    // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+//                    enableMouseTracking: false
+//                }
+//            },
+//            series: [{
+//                name: '总调度次数',
+//                data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+//            }, {
+//                name: '失败次数',
+//                data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+//            }]
+//        });
+    }
+</script>
+
+<script type="application/javascript">
+
+    /**
+	 * 第一个统计图
+     */
+    (function(w) {
+        var Map = function() {
+            this.obj = {};
+        };
+        Map.prototype.put = function(key, value) {
+            this.obj[key] = value;
+        };
+        Map.prototype.get = function(key) {
+            if(typeof this.obj[key] == "undefined") {
+                return "undefined";
+            }
+            return this.obj[key];
+        };
+        w.Map = Map;
+    }(window));
+
+
+    var statListJson = '${statListJson}';
+    var statList = JSON.parse(statListJson);
+    var statJobList = statList.statByJobList;
+    var statByTriggerDateList = statList.statByTriggerDateList;
+    var statByAppKeyList = statList.statByAppKeyList;
+
+
+    var map = new Map();
+    for (var i = 0; i < statJobList.length; i++) {
+        var obj = map.get(statJobList[i].appName);
+        if (obj == "undefined") {
+            var obj = {};
+            obj.appName = statJobList[i].appName;
+            obj.jobSum = 1;
+            obj.triggerSum = statJobList[i].triggerCount;
+            obj.triggerFailSum = statJobList[i].triggerFailCount;
+            obj.maxLeadTimeSum = statJobList[i].maxLeadTime;
+            obj.minLeadTimeSum = statJobList[i].minLeadTime;
+            obj.leadTimeSum = statJobList[i].leadTimeSum;
+            obj.leadTimeAvg = statJobList[i].leadTimeAvg;
+            map.put(statJobList[i].appName, obj);
+        }else {
+            obj.jobSum++;
+            obj.triggerSum += statJobList[i].triggerCount;
+            obj.triggerFailSum += statJobList[i].triggerFailCount;
+            obj.maxLeadTimeSum += statJobList[i].maxLeadTime;
+            obj.minLeadTimeSum += statJobList[i].minLeadTime;
+            obj.leadTimeSum += statJobList[i].leadTimeSum;
+        }
+    }
+
+    var obj = map.obj;
+
+    var arrx = [];
+    var jobSum = 0;
+    for (var i in obj) {
+        var foo = {};
+        foo.appName = i;
+        foo.sum = obj[i].jobSum;
+        jobSum += obj[i].jobSum;
+        arrx.push(foo);
+    }
+
+
+    for (var i = 0; i < arrx.length - 1; i++) {
+        for (var j = 0; j < arrx.length - 1; j++) {
+            if (arrx[j].sum < arrx[j + 1].sum) {
+                var temp = arrx[j];
+                arrx[j] = arrx[j + 1];
+                arrx[j + 1] = temp;
+            }
+        }
+    }
+
+    var chartArr = [];
+    var otherSum = 0;
+    for (var i = 0; i < arrx.length; i++) {
+        var bar = {};
+        if (i < 4) {
+            bar.name = arrx[i].appName;
+            bar.y = arrx[i].sum / jobSum * 100;
+            bar.sum = arrx[i].sum;
+            chartArr.push(bar);
+        }else {
+            otherSum += arrx[i].sum;
+        }
+    }
+
+
+
+    if (otherSum > 0) {
+        chartArr[4] = {"name":"other", "y" : otherSum / jobSum * 100, "sum": otherSum};
+    }
+
+
+
+
+    for (var i = 0; i < chartArr.length; i++) {
+        var str = "<tr><td>" + chartArr[i].name + "</td><td>" + chartArr[i].sum+ "</td></tr>";
+		$("#table1").append($(str));
+    }
+
+    $(function() {
+        Highcharts.chart('chart_5', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: '各业务调度任务数占比列'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: chartArr
+//                                            data: [{
+//                                                name: 'Chrome',
+//                                                y: 61.41,
+//                                                sliced: true,
+//                                                selected: true
+//                                            }, {
+//                                                name: 'Internet Explorer',
+//                                                y: 11.84
+//                                            }, {
+//                                                name: 'Firefox',
+//                                                y: 10.85
+//                                            }, {
+//                                                name: 'Edge',
+//                                                y: 4.67
+//                                            }, {
+//                                                name: 'Safari',
+//                                                y: 4.18
+//                                            }, {
+//                                                name: 'Sogou Explorer',
+//                                                y: 1.64
+//                                            }, {
+//                                                name: 'Opera',
+//                                                y: 1.6
+//                                            }, {
+//                                                name: 'QQ',
+//                                                y: 1.2
+//                                            }, {
+//                                                name: 'Other',
+//                                                y: 2.61
+//                                            }]
+            }]
+        });
+    });
+
+    /**
+	 * 第三统计表
+     */
+    $(function() {
+        for (var i = 0; i < statJobList.length - 1; i++) {
+            for (var j = 0; j < statJobList.length - 1; j++) {
+                if (statJobList[j].triggerFailRate < statJobList[j + 1].triggerFailRate) {
+                    var temp = statJobList[j];
+                    statJobList[j] = statJobList[j + 1];
+                    statJobList[j + 1] = temp;
+                }
+            }
+        }
+
+        for (var i = 0; i < statJobList.length; i++) {
+            if (i >= 5) {
+                break;
+			}
+            var index = i + 1;
+            var str = "<tr><td>"+index+"</td><td>"+statJobList[i].jobName+"</td><td>"+statJobList[i].jobCreateTime+"</td><td>"+statJobList[i].triggerCount+"</td><td>"+statJobList[i].triggerFailCount+"</td><td>"+ (statJobList[i].triggerFailRate * 100).toFixed(2)+"%</td></tr>";
+			$("#trigger-sum-top-job").append(str);
+        }
+
+        var obj = map.obj;
+
+        var arrz = [];
+        for (var i in obj) {
+            arrz.push(obj[i]);
+        }
+
+        for (var i = 0; i < arrz.length - 1; i++) {
+            for (var j = 0; j < arrz.length - 1; j++) {
+                var x1 = arrz[j].triggerFailSum / arrz[j].triggerSum;
+                var x2 = arrz[j + 1].triggerFailSum / arrz[j + 1].triggerSum;
+                if (x1 < x2) {
+                    var temp = arrz[j];
+                    arrz[j] = arrz[j + 1];
+                    arrz[j + 1] = temp;
+                }
+            }
+        }
+
+        for (var i = 0; i < arrz.length; i++) {
+            if (i >= 5) {
+                break;
+            }
+            var index = i + 1;
+            var str = "<tr><td>"+index+"</td><td>"+arrz[i].appName+"</td><td>"+arrz[i].jobSum+"</td><td>"+arrz[i].triggerSum+"</td><td>"+arrz[i].triggerFailSum+"</td><td>"+ ((arrz[i].triggerFailSum/arrz[i].triggerSum) * 100).toFixed(2)+"%</td></tr>";
+            $("#trigger-sum-top-app").append(str);
+        }
+    })
+
+    /**
+	 * 第四个统计表
+     */
+    $(function() {
+
+        for (var i = 0; i < statJobList.length - 1; i++) {
+            for (var j = 0; j < statJobList.length - 1; j++) {
+                if (statJobList[j].leadTimeAvg < statJobList[j + 1].leadTimeAvg) {
+                    var temp = statJobList[j];
+                    statJobList[j] = statJobList[j + 1];
+                    statJobList[j + 1] = temp;
+                }
+            }
+        }
+
+
+        for (var i = 0; i < statJobList.length; i++) {
+            if (i >= 5) {
+                break;
+            }
+            var index = i + 1;
+//            var str = "<tr><td>"+index+"</td><td>"+statJobList[i].jobName+"</td><td>"+statJobList[i].jobCreateTime+"</td><td>"+statJobList[i].triggerCount+"</td><td>"+statJobList[i].leadTimeAvg+"</td><td>"+statJobList[i].maxLeadTime+"</td><td>"+statJobList[i].minLeadTime+"</td></tr>";
+            var str = "<tr><td>"+index+"</td><td>"+statJobList[i].jobName+"</td><td>"+statJobList[i].triggerCount+"</td><td>"+statJobList[i].leadTimeAvg.toFixed(2)+"</td><td>"+statJobList[i].maxLeadTime+"</td><td>"+statJobList[i].minLeadTime+"</td></tr>";
+			$("#lead-time-job").append(str);
+        }
+
+        var arrz = [];
+        for (var i in obj) {
+            arrz.push(obj[i]);
+        }
+
+        for (var i = 0; i < arrz.length - 1; i++) {
+            for (var j = 0; j < arrz.length - 1; j++) {
+                if (arrz[j].leadTimeAvg < arrz[j + 1].leadTimeAvg) {
+                    var temp = arrz[j];
+                    arrz[j] = arrz[j + 1];
+                    arrz[j + 1] = temp;
+                }
+            }
+        }
+
+        for (var i = 0; i < arrz.length; i++) {
+            if (i >= 5) {
+                break;
+            }
+            var index = i + 1;
+            var str = "<tr><td>"+index+"</td><td>"+arrz[i].appName+"</td><td>"+arrz[i].jobSum+"</td><td>"+arrz[i].triggerSum+"</td><td>"+arrz[i].leadTimeAvg+"</td><td>"+arrz[i].maxLeadTimeSum+"</td><td>"+arrz[i].minLeadTimeSum+"</td></tr>";
+            $("#lead-time-app").append(str);
+        }
+    })
+
+
+    /**
+	 * 第二个统计图
+     */
+	$(function() {
+
+        function timestampToDate(timestamp) {
+            var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+            var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '.';
+            var D = date.getDate() + ' ';
+            return M+D;
+        }
+
+        var categories = [];
+        var triggerCountData = [];
+        var triggerFailCountData = [];
+
+	    for (var i = 0; i < statByTriggerDateList.length; i++) {
+            categories.push(timestampToDate(statByTriggerDateList[i].triggerDate));
+            triggerCountData.push(statByTriggerDateList[i].triggerCount)
+            triggerFailCountData.push(statByTriggerDateList[i].triggerFailCount)
+        }
+
+        var appKeyCategories = [];
+        var appKeyTriggerSuccessCountData = [];
+        var appKeyTriggerFailCountData = [];
+
+
+        for (var i = 0; i < statByAppKeyList.length; i++) {
+            appKeyCategories.push(statByAppKeyList[i].appKey);
+            appKeyTriggerSuccessCountData.push(statByAppKeyList[i].triggerCount - statByAppKeyList[i].triggerFailCount);
+            appKeyTriggerFailCountData.push(statByAppKeyList[i].triggerFailCount);
+        }
+
+        var chart = Highcharts.chart('chart_9', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '堆叠柱形图'
+            },
+            xAxis: {
+//                categories: ['苹果', '橘子', '梨', '葡萄', '香蕉']
+                categories: appKeyCategories
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '水果消费总量'
+                },
+                stackLabels: {  // 堆叠数据标签
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                x: -30,
+                verticalAlign: 'top',
+                y: 25,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.x + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' +
+                        '总量: ' + this.point.stackTotal;
+                }
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        style: {
+                            // 如果不需要数据标签阴影，可以将 textOutline 设置为 'none'
+                            textOutline: '1px 1px black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: '成功',
+//                data: [5, 3, 4, 7, 2]
+                data: appKeyTriggerSuccessCountData
+            }, {
+                name: '失败',
+//                data: [2, 2, 3, 2, 1]
+                data: appKeyTriggerFailCountData
+            }]
+        });
+        var chart = Highcharts.chart('chart_3', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: '近30天调度数据'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+//                categories: ['一月', '二月']
+                categories: categories
+            },
+            yAxis: {
+                title: {
+                    text: '调度/次数'
+                }
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        // 开启数据标签
+                        enabled: true
+                    },
+                    // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+                    enableMouseTracking: false
+                }
+            },
+            series: [{
+                name: '总调度次数',
+//                data: [7.0, 6.9]
+                data: triggerCountData
+            }, {
+                name: '失败次数',
+//                data: [3.9, 4.2]
+                data: triggerFailCountData
+            }]
+        });
+	});
+
+
+
+
+</script>
+<!--<script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/6.0.7/highcharts.js"></script>-->
+<script src="${ctxPath}/static/js/plugins/highcharts/highcharts.js"></script>
+<script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
+<script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+<script src="https://img.hcharts.cn/highcharts/themes/grid-light.js"></script>
+@}

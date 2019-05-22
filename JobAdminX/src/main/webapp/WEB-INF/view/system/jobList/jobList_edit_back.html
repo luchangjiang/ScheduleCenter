@@ -1,0 +1,59 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${jobTriggerAppVo.id}">
+
+            <div class="row">
+                <div class="col-sm-6 ">
+
+                    <#input id="jobName" name="任务名称" underline="true" value="${jobTriggerAppVo.jobName}" readonly="readonly" />
+                    <#input id="cronExpression" name="CRON" underline="true" value="${jobTriggerAppVo.cronExpression}" />
+
+
+                </div>
+
+                <div class="col-sm-6 ">
+                    <#input id="jobCode" name="任务编号" underline="true" value="${jobTriggerAppVo.jobCode}" readonly="readonly" />
+                    <#input id="appKey" name="选择应用" underline="true" value="${jobTriggerAppVo.appKey}" readonly="readonly" />
+                </div>
+
+                <div class="col-sm-12 ">
+                    <#input id="callbackUrl" name="回调地址" underline="true" value="${jobTriggerAppVo.callbackUrl}" />
+                </div>
+
+                <div class="col-sm-12 ">
+                    <#input id="jobDesc" name="任务描述" underline="true" value="${jobTriggerAppVo.jobDesc}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="JobListInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="JobListInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function() {
+        var maxLength = 64;
+        $("#jobName").attr("maxlength", maxLength);
+        $("#jobCode").attr("maxlength", maxLength);
+        $("#appKey").attr("maxlength", maxLength);
+        $("#cronExpression").attr("maxlength", maxLength);
+        $("#callbackUrl").attr("maxlength", maxLength);
+        $("#jobDesc").attr("maxlength", maxLength);
+
+        $("#callbackUrl").parent().parent().find("label").eq(0).width(64);
+        $("#callbackUrl").parent().parent().find("input").eq(0).width(600);
+        $("#jobDesc").parent().parent().find("label").eq(0).width(64);
+        $("#jobDesc").parent().parent().find("input").eq(0).width(600);
+    });
+</script>
+<script src="${ctxPath}/static/modular/system/jobList/jobList_info.js"></script>
+@}

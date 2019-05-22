@@ -1,0 +1,57 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>应用列表管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="appName" name="名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#NameCon id="appKey" name="编号" />
+                            </div>
+                            <div class="col-sm-2">
+                                <#SelectCon id="appStatus" name="状态" >
+                                    <option value="0">全部</option>
+                                    <option value="1">启用</option>
+                                    <option value="2">禁用</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="AppList.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="AppListTableToolbar" role="group">
+                            @if(shiro.hasPermission("/appList/add")){
+                                <#button name="添加" icon="" clickFun="AppList.openAddAppList()"/>
+                            @}
+                            @if(shiro.hasPermission("/appList/update")){
+                                <#button name="修改" icon="" clickFun="AppList.openAppListDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/appList/delete")){
+                                <#button name="删除" icon="" clickFun="AppList.delete()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/appList/enable")){
+                                <#button name="启用" icon="" clickFun="AppList.enable()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/appList/disable")){
+                                <#button name="禁用" icon="" clickFun="AppList.disable()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/appList/bind")){
+                                <#button name="绑定用户" icon="" clickFun="AppList.bindUser()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="AppListTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/appList/appList.js"></script>
+@}

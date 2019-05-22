@@ -1,0 +1,46 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${monitorObjectVo.id}">
+            <!--<input type="hidden" id="objPolicySettings" value="${monitorObjectVo.objPolicySettings}">-->
+
+
+            <div class="row">
+                <div class="col-sm-8" id="key-input">
+                </div>
+
+                <div class="col-sm-4" id="compare-input">
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="MonitorListInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="MonitorListInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span id="objPolicySettings" style="display: none">${monitorObjectVo.objPolicySettings}</span>
+</div>
+<script>
+    $(function() {
+
+        // Create by fox
+        // 根据配置自动生成input
+        var data = JSON.parse('${monitorObjectVo.objPolicySettings}');
+        var items = data.items;
+        for(var i = 0; i < items.length; i++) {
+            var keyInputStr = "<div class='form-group'><label class='col-sm-3 control-label'>"+items[i].name+"</label><div class='col-sm-9'><input class='form-control' id='"+items[i].key+"' type='text' value='"+items[i].value+"'></div></div> <div class='hr-line-dashed'></div>";
+            $("#key-input").append(keyInputStr);
+            var compareId = items[i].key + '-compare';
+            var compareInputStr = "<div class='form-group'><label class='col-sm-3 control-label'>策略</label><div class='col-sm-9'><select class='form-control' id='"+ compareId +"'><option value=''>对比策略</option><option value='0'>等于</option><option value='1'>大于</option><option value='-1'>小于</option><option value='10'>大于等于</option><option value='-10'>小于等于</option></select></div></div><div class='hr-line-dashed'></div>";
+            $("#compare-input").append(compareInputStr);
+            $("#" + compareId).val(items[i].compare);
+        }
+    });
+</script>
+<script src="${ctxPath}/static/modular/system/monitorList/monitorList_info.js"></script>
+@}
